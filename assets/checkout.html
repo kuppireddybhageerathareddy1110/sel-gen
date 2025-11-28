@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
+<style>
+  .error{color:red;display:none}
+  #ok{display:none;color:green}
+</style>
+</head>
+
+<body>
+
+<h3>Checkout</h3>
+
+<!-- Cart -->
+<button id="addA">Add A ($50)</button>
+<button id="addB">Add B ($30)</button>
+<p>Total: $<span id="total">0</span></p>
+
+<!-- Discount -->
+<input id="code" placeholder="Discount code">
+<button id="apply">Apply</button>
+<p id="code_err" class="error">Invalid code</p>
+
+<!-- User -->
+<input id="name" placeholder="Name"><p id="name_err" class="error">Name required</p>
+<input id="email" placeholder="Email"><p id="email_err" class="error">Invalid email</p>
+<textarea id="addr" placeholder="Address"></textarea>
+<p id="addr_err" class="error">Address required</p>
+
+<!-- Pay -->
+<button id="pay">Pay Now</button>
+<p id="pay_err" class="error">Fill all fields</p>
+<p id="ok">Payment Successful!</p>
+
+<script>
+let a=0,b=0;
+function calc(){
+  let t=a*50+b*30;
+  if(document.getElementById("code").value==="SAVE15") t*=0.85;
+  document.getElementById("total").innerText=t.toFixed(2);
+}
+
+document.getElementById("addA").onclick=()=>{a++;calc();}
+document.getElementById("addB").onclick=()=>{b++;calc();}
+
+document.getElementById("apply").onclick=()=>{
+  let c=document.getElementById("code").value;
+  document.getElementById("code_err").style.display=(c==="SAVE15")?"none":"block";
+  calc();
+};
+
+document.getElementById("pay").onclick=()=>{
+  let n=document.getElementById("name").value.trim();
+  let e=document.getElementById("email").value.trim();
+  let ad=document.getElementById("addr").value.trim();
+  let ok=true;
+
+  let em=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+  document.getElementById("name_err").style.display=n?"none":"block";
+  document.getElementById("email_err").style.display=em.test(e)?"none":"block";
+  document.getElementById("addr_err").style.display=ad?"none":"block";
+
+  if(!n||!em.test(e)||!ad) ok=false;
+
+  if(!ok) document.getElementById("pay_err").style.display="block";
+  else{
+    document.getElementById("pay_err").style.display="none";
+    document.getElementById("ok").style.display="block";
+  }
+};
+</script>
+
+</body>
+</html>

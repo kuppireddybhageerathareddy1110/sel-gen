@@ -1,0 +1,28 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+streamlit
+requests
+beautifulsoup4
+pymupdf
+bs4
+sentence-transformers
+faiss-cpu
+numpy
+tqdm
+pytest
+selenium
+webdriver-manager
+python-dotenv
+
+
+typing_extensions
+
+
+# dev / optional
+black
+isort
+
+
+# Note: If you will use a different vector DB (Chroma/Qdrant), add its client package.
